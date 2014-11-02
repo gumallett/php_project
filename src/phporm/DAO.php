@@ -47,7 +47,8 @@ class DAO {
    }
 
    public function findAll($class, $where = null, $args = array()) {
-      $table = $class::getTable();
+      $tableModel = new TableModel(new $class);
+      $table = $tableModel->getTableName();
       $sql = "select * from $table ";
 
       if(isset($where)) {
