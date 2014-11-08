@@ -11,7 +11,7 @@ function validate($form, &$alert) {
     $success = true;
 
     if (!isset($form['checkin']) || $form['checkin'] == '') {
-        $alert['checkin'] = 'Checkin field should be set.';
+        $alert['message'] = 'Checkin field should be set.';
         $success = false;
     }
     else {
@@ -19,13 +19,13 @@ function validate($form, &$alert) {
         $form['checkin'] = date_parse($checkin_date);
 
         if ($form['checkin']['error_count'] > 0) {
-            $alert['checkin'] = 'Invalid checkin date: ' . $checkin_date.'. Enter date in format mm/dd/yyyy.';
+            $alert['message'] = 'Invalid checkin date: ' . $checkin_date.'. Enter date in format mm/dd/yyyy.';
             $success = false;
         }
     }
 
     if (!isset($form['checkout']) || $form['checkout'] == '') {
-        $alert['checkout'] = 'Checkout field should be set.';
+        $alert['message'] = 'Checkout field should be set.';
         $success = false;
     }
     else {
@@ -33,7 +33,7 @@ function validate($form, &$alert) {
         $form['checkout'] = date_parse($checkout_date);
 
         if ($form['checkout']['error_count'] > 0) {
-            $alert['checkout'] = 'Invalid checkin date: ' . $checkout_date.'. Enter date in format mm/dd/yyyy.';
+            $alert['message'] = 'Invalid checkin date: ' . $checkout_date.'. Enter date in format mm/dd/yyyy.';
             $success = false;
         }
     }
@@ -59,7 +59,8 @@ $hotel = Hotel::find('id=1');
 $template = new HTMLTemplate('Home', 'template.php', array(
     'content' => 'views/home.html.php',
     'hotel' => $hotel,
-    'alert' => $alert
+    'alert' => $alert,
+    'scriptFile' => 'js/index.js'
 ));
 
 if (isset($_POST['room_form'])) {

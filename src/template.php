@@ -19,6 +19,9 @@
        <?php include $this->content; ?>
       </div>
 
+      <?php if($this->scriptFile != null) { ?>
+          <script type="text/javascript" src="<?php echo $this->scriptFile; ?>"></script>
+      <?php } ?>
       <script type="text/javascript"><?php echo $this->script; ?></script>
    </body>
 </html>

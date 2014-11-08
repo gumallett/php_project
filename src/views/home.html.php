@@ -1,19 +1,16 @@
 <h1>Welcome to <?php echo $this->hotel->getName() ?></h1>
+<?php if(isset($this->alert['message'])) { ?>
+<span class="has-error"><?php echo $this->alert['message'] ?></span>
+<?php } ?>
 <div id="room_form">
-    <form role="form" method="post">
-        <div class="form-group<?php echo isset($this->alert['checkin']) ? ' has-error' : '' ?>">
+    <form id="room_form_form" role="form" method="post" onsubmit="return validate(document.forms['room_form_form']);" novalidate>
+        <div class="form-group">
             <label for="checkin">Check-in</label>
-            <input id="checkin" name="checkin" class="form-control" type="date" value="<?php echo $this->checkin ?>"/>
-            <?php if(isset($this->alert['checkin'])) { ?>
-            <span class="help-block"><?php echo $this->alert['checkin'] ?></span>
-            <?php } ?>
+            <input id="checkin" name="checkin" class="form-control" type="date" value="<?php echo $this->checkin ?>" required/>
         </div>
-        <div class="form-group<?php echo isset($this->alert['checkout']) ? ' has-error' : '' ?>">
+        <div class="form-group">
             <label for="checkout">Check-out</label>
-            <input id="checkout" name="checkout" class="form-control" type="date" value="<?php echo $this->checkout ?>"/>
-            <?php if(isset($this->alert['checkout'])) { ?>
-                <span class="help-block"><?php echo $this->alert['checkout'] ?></span>
-            <?php } ?>
+            <input id="checkout" name="checkout" class="form-control" type="date" value="<?php echo $this->checkout ?>" required/>
         </div>
         <div class="form-group">
             <label for="num_rooms"># of rooms</label>
