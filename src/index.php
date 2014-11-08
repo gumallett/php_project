@@ -8,18 +8,44 @@ use model\Hotel;
 use phporm\Logger;
 
 function validate($form, &$alert) {
-    if (!isset($form['checkin']) || $form['checkin'] == '' || !isset($form['checkout']) || $form['checkout'] == '') {
-        $alert = 'Both checkin and checkout fields should be set.';
-        return false;
+    $success = true;
+
+    if (!isset($form['checkin']) || $form['checkin'] == '') {
+        $alert['checkin'] = 'Checkin field should be set.';
+        $success = false;
+    }
+    else {
+        $checkin_date = $form['checkin'];
+        $form['checkin'] = date_parse($checkin_date);
+
+        if ($form['checkin']['error_count'] > 0) {
+            $alert['checkin'] = 'Invalid checkin date: ' . $checkin_date.'. Enter date in format mm/dd/yyyy.';
+            $success = false;
+        }
     }
 
-    return true;
+    if (!isset($form['checkout']) || $form['checkout'] == '') {
+        $alert['checkout'] = 'Checkout field should be set.';
+        $success = false;
+    }
+    else {
+        $checkout_date = $form['checkout'];
+        $form['checkout'] = date_parse($checkout_date);
+
+        if ($form['checkout']['error_count'] > 0) {
+            $alert['checkout'] = 'Invalid checkin date: ' . $checkout_date.'. Enter date in format mm/dd/yyyy.';
+            $success = false;
+        }
+    }
+
+    return $success;
 }
 
 Logger::log($_POST);
-$alert = null;
+$alert = array();
 if(isset($_POST['room_form'])) {
     $success = validate($_POST, $alert);
+    Logger::log($alert);
 
     if ($success) {
         session_start();
@@ -35,5 +61,11 @@ $template = new HTMLTemplate('Home', 'template.php', array(
     'hotel' => $hotel,
     'alert' => $alert
 ));
+
+if (isset($_POST['room_form'])) {
+    foreach ($_POST as $key => $val) {
+        $template->$key = $val;
+    }
+}
 
 $template->render();

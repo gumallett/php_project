@@ -1,18 +1,19 @@
 <h1>Welcome to <?php echo $this->hotel->getName() ?></h1>
 <div id="room_form">
-    <?php if($this->alert != null) { ?>
-    <div class="alert alert-danger">
-        <?php echo $this->alert ?>
-    </div>
-    <?php } ?>
     <form role="form" method="post">
-        <div class="form-group">
+        <div class="form-group<?php echo isset($this->alert['checkin']) ? ' has-error' : '' ?>">
             <label for="checkin">Check-in</label>
-            <input id="checkin" name="checkin" class="form-control" type="date"/>
+            <input id="checkin" name="checkin" class="form-control" type="date" value="<?php echo $this->checkin ?>"/>
+            <?php if(isset($this->alert['checkin'])) { ?>
+            <span class="help-block"><?php echo $this->alert['checkin'] ?></span>
+            <?php } ?>
         </div>
-        <div class="form-group">
+        <div class="form-group<?php echo isset($this->alert['checkout']) ? ' has-error' : '' ?>">
             <label for="checkout">Check-out</label>
-            <input id="checkout" name="checkout" class="form-control" type="date" required/>
+            <input id="checkout" name="checkout" class="form-control" type="date" value="<?php echo $this->checkout ?>"/>
+            <?php if(isset($this->alert['checkout'])) { ?>
+                <span class="help-block"><?php echo $this->alert['checkout'] ?></span>
+            <?php } ?>
         </div>
         <div class="form-group">
             <label for="num_rooms"># of rooms</label>
