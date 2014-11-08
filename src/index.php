@@ -7,7 +7,7 @@ require_once 'Http.php';
 use model\Hotel;
 use phporm\Logger;
 
-function validate($form, &$alert) {
+function validate(&$form, &$alert) {
     $success = true;
 
     if (!isset($form['checkin']) || $form['checkin'] == '') {
@@ -16,9 +16,11 @@ function validate($form, &$alert) {
     }
     else {
         $checkin_date = $form['checkin'];
-        $form['checkin'] = date_parse($checkin_date);
 
-        if ($form['checkin']['error_count'] > 0) {
+        try {
+            $form['checkin'] = new DateTime($checkin_date);
+        }
+        catch(Exception $err) {
             $alert['message'] = 'Invalid checkin date: ' . $checkin_date.'. Enter date in format mm/dd/yyyy.';
             $success = false;
         }
@@ -30,9 +32,10 @@ function validate($form, &$alert) {
     }
     else {
         $checkout_date = $form['checkout'];
-        $form['checkout'] = date_parse($checkout_date);
-
-        if ($form['checkout']['error_count'] > 0) {
+        try {
+            $form['checkout'] = new DateTime($checkout_date);
+        }
+        catch(Exception $err) {
             $alert['message'] = 'Invalid checkin date: ' . $checkout_date.'. Enter date in format mm/dd/yyyy.';
             $success = false;
         }
@@ -44,12 +47,16 @@ function validate($form, &$alert) {
 Logger::log($_POST);
 $alert = array();
 if(isset($_POST['room_form'])) {
-    $success = validate($_POST, $alert);
-    Logger::log($alert);
+    $form = $_POST;
+    $success = validate($form, $alert);
+    Logger::log($form['checkin']);
 
     if ($success) {
         session_start();
-        $_SESSION['room_form'] = $_POST['room_form'];
+        $diff = $form['checkin']->diff($form['checkout']);
+        $diff = $diff->format('%a');
+        $_SESSION['room_form'] = $form;
+        $_SESSION['stay_length'] =
         Http::sendRedirect('/roomselect.php');
     }
 }

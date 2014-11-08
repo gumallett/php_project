@@ -13,6 +13,11 @@ final class Logger {
          $message = $msg;
       }
 
-      file_put_contents("php://stderr", $message."\n");
+       if($message instanceof \DateTime) {
+           file_put_contents("php://stderr", $message->format(\DateTime::ATOM)."\n");
+       }
+       else {
+           file_put_contents("php://stderr", $message."\n");
+       }
    }
 }
