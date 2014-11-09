@@ -16,7 +16,12 @@ class Annotations {
       $this->properties = $metadata->getProperties();
 
       $arr = array();
-      foreach($this->properties as $prop) {
+      foreach($this->properties as $key => $prop) {
+         //ignore static props
+         if($prop->isStatic()) {
+             unset($this->properties[$key]);
+         }
+
          $comment = $prop->getDocComment();
 
          if($comment) {
