@@ -3,6 +3,8 @@
 namespace phporm;
 
 use phporm\annotation\Annotations;
+use DateTime;
+use Exception;
 
 class TableModel {
 
@@ -60,6 +62,22 @@ class TableModel {
 
                case 'OneToMany':
                   $this->relation_types[$col_name] = $annotation;
+                  break;
+               case 'Temporal':
+                  Logger::log('TEMPORAL');
+
+                  if($value) {
+                      try {
+                          $dateObj = new DateTime($value);
+                          $this->attributes[$col_name] = $dateObj;
+                          $setter = self::getSetter($col_name);
+                          $this->record->$setter($dateObj);
+                      }
+                      catch(Exception $e) {
+                          Logger::log($e->getMessage());
+                      }
+                  }
+
                   break;
 
                //TODO: handle other anno types here
@@ -139,6 +157,7 @@ class TableModel {
                }
 
                $class = 'model\\' . $class;
+               model_load($class);
                $key = $annotation->key;
 
 

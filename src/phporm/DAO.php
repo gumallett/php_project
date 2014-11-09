@@ -216,6 +216,11 @@ class DAO {
             $sql = preg_replace("/:$param(,|\))/m", "$val$1", $sql);
             $sql = preg_replace("/:$param(,|\s|$)/m", "$val$1", $sql);
          }
+         elseif($val instanceof \DateTime) {
+             $dateString = $val->format('Y-m-d H:i:s');
+             $sql = preg_replace("/:$param(,|\))/m", "'$dateString'$1", $sql);
+             $sql = preg_replace("/:$param(,|\s|$)/m", "'$dateString'$1", $sql);
+         }
          else {
             $val = $this->connection->real_escape_string($val);
             $val = addcslashes($val, '$');
