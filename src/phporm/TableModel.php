@@ -66,7 +66,7 @@ class TableModel {
                case 'Temporal':
                   Logger::log('TEMPORAL');
 
-                  if($value) {
+                  if($value && !$value instanceof DateTime) {
                       try {
                           $dateObj = new DateTime($value);
                           $this->attributes[$col_name] = $dateObj;
@@ -76,6 +76,9 @@ class TableModel {
                       catch(Exception $e) {
                           Logger::log($e->getMessage());
                       }
+                  }
+                  else if($value && $value instanceof DateTime) {
+                      $this->attributes[$col_name] = $value;
                   }
 
                   break;
