@@ -2,9 +2,13 @@
 require_once 'HTMLTemplate.php';
 require_once 'phporm\globals.php';
 require_once 'model\Hotel.php';
+require_once 'model\Cart.php';
+require_once 'model\Booking.php';
 require_once 'Http.php';
 
 use model\Hotel;
+use model\Cart;
+use model\Booking;
 use phporm\Logger;
 
 function validate(&$form, &$alert) {
@@ -55,8 +59,19 @@ if(isset($_POST['room_form'])) {
         session_start();
         $diff = $form['checkin']->diff($form['checkout']);
         $diff = $diff->format('%a');
-        $_SESSION['room_form'] = $form;
-        $_SESSION['stay_length'] =
+        $cart = new Cart();
+        $cart->setStayLength($diff);
+        $cart->setNumRooms($form['num_rooms']);
+        $cart->setAdults($form['num_adults']);
+        $cart->setChildren($form['num_kids']);
+
+        $booking = new Booking();
+        $booking->setStartDate($form['checkin']);
+        $booking->setEndDate($form['checkout']);
+
+        $cart->setBooking($booking);
+
+        $_SESSION['cart'] = $cart;
         Http::sendRedirect('/roomselect.php');
     }
 }
