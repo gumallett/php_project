@@ -2,7 +2,8 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
-CREATE SCHEMA IF NOT EXISTS `gregmallettdatabase`;
+drop schema if exists `gregmallettdatabase`;
+CREATE SCHEMA `gregmallettdatabase`;
 USE `gregmallettdatabase` ;
 
 GRANT SELECT, INSERT, DELETE, UPDATE ON gregmallettdatabase.* TO gregmallett@localhost IDENTIFIED BY 'gregmallettpass';
@@ -77,8 +78,7 @@ CREATE  TABLE IF NOT EXISTS `customers` (
   `zip` VARCHAR(45) NULL ,
   `phone` VARCHAR(45) NULL ,
   `email` VARCHAR(45) NOT NULL ,
-  PRIMARY KEY (`id`) ,
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC) )
+  PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
 

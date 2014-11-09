@@ -8,7 +8,7 @@ $cost = number_format($length * $rate * $numRooms, 2);
 
 ?>
 
-<h1>CONFIRMATION</h1>
+<h1>Confirmation</h1>
 
 <div class="well well-lg">
     <form role="form">
@@ -39,3 +39,69 @@ $cost = number_format($length * $rate * $numRooms, 2);
         </div>
     </form>
 </div>
+
+<?php if(isset($this->alert['message'])) { ?>
+    <div class="alert <?php echo $this->alert['type'] ?>" role="alert">
+        <?php echo $this->alert['message'] ?>
+    </div>
+<?php } ?>
+
+<form id="customer_form" role="form" method="post" onsubmit="return validate(this);" novalidate>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" class="form-control" required/>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="address">Address:</label>
+                <input type="text" name="address" id="address" class="form-control" required/>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="city">City:</label>
+                <input type="text" name="city" id="city" class="form-control" required/>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="state">State:</label>
+                <input type="text" name="state" id="state" class="form-control" required/>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="zip">Zip:</label>
+                <input type="text" name="zip" id="zip" class="form-control" required/>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="text" name="phone" id="phone" class="form-control" required/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" class="form-control" required/>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-primary">Submit</button>
+    </div>
+
+</form>

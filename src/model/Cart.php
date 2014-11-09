@@ -2,6 +2,8 @@
 
 namespace model;
 
+use Exception;
+
 class Cart {
 
     private $stayLength;
@@ -80,6 +82,24 @@ class Cart {
         $this->stayLength = $stayLength;
     }
 
+    public function saveCart() {
+        $alert = array();
+
+        try {
+            $booking = $this->getBooking();
+            $booking->save_();
+        }
+        catch(Exception $e) {
+            $alert['message'] = $e->getMessage();
+            $alert['type'] = 'alert-danger';
+            return $alert;
+        }
+
+        $alert['message'] = 'Your order has been processed. Customer id: ' . $booking->getCustomer()->getId();
+        $alert['type'] = 'alert-success';
+
+        return $alert;
+    }
 
 }
  

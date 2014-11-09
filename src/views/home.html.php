@@ -3,7 +3,7 @@
 <span class="has-error"><?php echo $this->alert['message'] ?></span>
 <?php } ?>
 <div id="room_form">
-    <form id="room_form_form" role="form" method="post" onsubmit="return validate(document.forms['room_form_form']);" novalidate>
+    <form id="room_form_form" role="form" method="post" onsubmit="return validate(this);" novalidate>
         <div class="form-group">
             <label for="checkin">Check-in</label>
             <input id="checkin" name="checkin" class="form-control" type="date" value="<?php echo $this->checkin ?>" required/>
