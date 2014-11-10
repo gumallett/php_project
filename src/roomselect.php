@@ -22,6 +22,12 @@ if(isset($_POST['room_type'])) {
     $room_type = RoomType::find('value=:type', array('type' => $_POST['room_type']));
     $room = Room::find('room_type_id=:id', array('id' => $room_type->getId()));
     $cart->getBooking()->setRoom($room);
+
+    $booking = $cart->getBooking();
+    $length = $cart->getStayLength();
+    $rate = $booking->getRoom()->getNightlyRate();
+    $numRooms = $cart->getNumRooms();
+    $booking->setCost(number_format($length * $rate * $numRooms, 2));
     Http::sendRedirect('/confirmation.php');
 }
 

@@ -12,6 +12,7 @@ class Booking extends Record {
     public static $__CLASS__ = __CLASS__;
 
     private $id;
+    private $cost;
 
     /**
      * {@Temporal}
@@ -102,6 +103,21 @@ class Booking extends Record {
     public function setStartDate(DateTime $start_date) {
         $this->start_date = $start_date;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCost() {
+        return $this->cost;
+    }
+
+    /**
+     * @param mixed $cost
+     */
+    public function setCost($cost) {
+        $this->cost = $cost;
+    }
+
 
 
 }

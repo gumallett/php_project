@@ -46,6 +46,7 @@ $cost = number_format($length * $rate * $numRooms, 2);
     </div>
 <?php } ?>
 
+<?php if(!isset($this->alert['message']) || $this->alert['type'] != 'alert-success') { ?>
 <form id="customer_form" role="form" method="post" onsubmit="return validate(this);" novalidate>
     <div class="row">
         <div class="col-sm-6">
@@ -105,3 +106,4 @@ $cost = number_format($length * $rate * $numRooms, 2);
     </div>
 
 </form>
+<?php } ?>

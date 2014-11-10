@@ -31,6 +31,10 @@ if(isset($_POST['name'])) {
     $cart->getBooking()->setCustomer($customer);
 
     $alert = $cart->saveCart();
+
+    if($alert['type'] == 'alert-success') {
+        unset($_SESSION['cart']);
+    }
 }
 
 $template = new HTMLTemplate('Confirm your selections', 'template.php', array(

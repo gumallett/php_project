@@ -91,6 +91,7 @@ CREATE  TABLE IF NOT EXISTS `bookings` (
   `start_date` DATETIME NOT NULL ,
   `end_date` DATETIME NOT NULL ,
   `customer_id` INT NOT NULL ,
+  `cost` DECIMAL NOT NULL,
   PRIMARY KEY (`id`) ,
   INDEX `booking_room_fk_idx` (`room_id` ASC) ,
   INDEX `booking_cust_fk_idx` (`customer_id` ASC) ,

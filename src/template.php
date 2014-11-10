@@ -15,6 +15,15 @@
    </head>
 
    <body>
+       <nav id="nav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+           <div class="container">
+               <ul class="nav navbar-nav">
+                   <li><a href="/index.php"><strong>gregmalletthotel</strong></a></li>
+                   <li><a href="/getcustomerinfo.php">Customer Lookup</a></li>
+               </ul>
+           </div>
+       </nav>
+
       <div class="container">
        <?php include $this->content; ?>
       </div>

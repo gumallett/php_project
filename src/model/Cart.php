@@ -95,7 +95,7 @@ class Cart {
             return $alert;
         }
 
-        $alert['message'] = 'Your order has been processed. Customer id: ' . $booking->getCustomer()->getId();
+        $alert['message'] = 'Your order has been processed. Use this link to view your order information: <a href="/customer.php?id='.$booking->getCustomer()->getId().'">link</a>';
         $alert['type'] = 'alert-success';
 
         return $alert;
