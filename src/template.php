@@ -20,6 +20,7 @@
                <ul class="nav navbar-nav">
                    <li><a href="/index.php"><strong>gregmalletthotel</strong></a></li>
                    <li><a href="/getcustomerinfo.php">Customer Lookup</a></li>
+                   <li><a href="/about.php">About</a></li>
                </ul>
            </div>
        </nav>
